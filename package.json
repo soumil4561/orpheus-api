@@ -1,0 +1,57 @@
+{
+  "name": "orpheus-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "format": "prettier --write ."
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.js": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.html": [
+      "eslint",
+      "prettier --write"
+    ],
+    "*.scss": "prettier --write",
+    "*.json": "prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soumil4561/orpheus-api.git"
+  },
+  "author": "Soumil Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soumil4561/orpheus-api/issues"
+  },
+  "homepage": "https://github.com/soumil4561/orpheus-api#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "eslint": "^9.28.0",
+    "globals": "^16.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^16.1.0",
+    "prettier": "3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.0"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  }
+}
