@@ -1,11 +1,8 @@
 {
   "name": "@orpheus/error-utils",
   "version": "1.0.0",
-  "main": "./dist/src/index.js",
+  "main": "src/index.js",
   "type": "module",
-  "exports": {
-    ".": "./dist/src/index.js"
-  },
   "files": [
     "dist/*",
     "package.json",
