@@ -1,0 +1,23 @@
+{
+  "name": "@orpheus/error-utils",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "module",
+  "files": [
+    "dist/*",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "author": "Soumil Singh",
+  "license": "ISC",
+  "description": "Error handling utilities for Orpheus API",
+  "dependencies": {
+    "http-status": "^2.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

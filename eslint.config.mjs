@@ -8,6 +8,10 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     plugins: { js },
     extends: ['js/recommended'],
+    rules: {
+      'no-console': 'error',
+      'no-unused-vars': 'warn',
+    },
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
