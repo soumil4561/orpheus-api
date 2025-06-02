@@ -1,0 +1,26 @@
+{
+  "name": "@orpheus-api/identity",
+  "version": "1.0.0",
+  "description": "Orpheus Core Identity Service",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch src --exec tsx src/index.ts",
+    "build": "tsc"
+  },
+  "author": "Soumil Singh",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.12.1",
+    "@as-integrations/express5": "^1.0.0",
+    "@orpheus/logger": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
