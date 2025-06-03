@@ -1,5 +1,5 @@
-import { BaseDatasource } from '.'
-import { ExternalRestApiDatasourceContext } from '@/types'
+import { BaseDatasource } from './index.js'
+import { ExternalRestApiDatasourceContext } from '@/types/index.js'
 
 export class ExternalRestApiDatasource extends BaseDatasource<ExternalRestApiDatasourceContext> {
   constructor(context: ExternalRestApiDatasourceContext) {

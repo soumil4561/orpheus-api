@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Orpheus datsource provider package",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {},
   "author": "Soumil Singh",
   "license": "ISC",
@@ -10,6 +11,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "got": "^14.4.7",
     "winston": "^3.17.0"
   }
 }

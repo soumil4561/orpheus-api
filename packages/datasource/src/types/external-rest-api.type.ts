@@ -1,4 +1,4 @@
-import { DatasourceContext } from '.'
+import { DatasourceContext } from './index.js'
 
 export interface ExternalRestApiDatasourceContext extends DatasourceContext {
   baseUrl: string

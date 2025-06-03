@@ -1,9 +1,36 @@
-import { BaseDatasource } from '@/datasource'
-import { InternalRestApiDatasourceContext } from '@/types'
+import got, { OptionsOfTextResponseBody } from 'got'
+
+import { BaseDatasource } from '@/datasource/index.js'
+import { InternalRestApiDatasourceContext } from '@/types/index.js'
 
 export class InternalRestApiDatasource extends BaseDatasource<InternalRestApiDatasourceContext> {
   constructor(context: InternalRestApiDatasourceContext) {
     super(context)
+  }
+
+  private async request<T>(options: OptionsOfTextResponseBody): Promise<T> {
+    const headers = {
+      Authorization: this.context.token
+        ? `Bearer ${this.context.token}`
+        : undefined,
+      ...this.context.headers,
+    }
+
+    const baseOptions = {
+      prefixUrl: this.context.baseUrl,
+      timeout: this.context.timeout
+        ? { request: this.context.timeout }
+        : undefined,
+      headers,
+      ...options,
+    }
+
+    return this.runWithRetry(
+      () => this.runWithTimeout(() => got(baseOptions).json<T>()),
+      this.context.retryPolicy?.retries,
+      this.context.retryPolicy?.delay,
+      this.context.retryPolicy?.maxDelay
+    )
   }
 
   public async runWithRetry<T>(
