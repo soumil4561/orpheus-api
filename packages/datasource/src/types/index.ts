@@ -1,3 +1,3 @@
-export * from './datasource.type.js'
-export * from './internal-rest-api.type.js'
-export * from './external-rest-api.type.js'
+export * from '@/types/datasource.type'
+export * from '@/types/internal-rest-api.type'
+export * from '@/types/external-rest-api.type'

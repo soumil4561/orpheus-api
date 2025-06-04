@@ -1,7 +1,7 @@
 import got, { OptionsOfTextResponseBody } from 'got'
 
-import { BaseDatasource } from '@/datasource/index.js'
-import { InternalRestApiDatasourceContext } from '@/types/index.js'
+import { BaseDatasource } from '@/datasource'
+import { InternalRestApiDatasourceContext } from '@/types'
 
 export class InternalRestApiDatasource extends BaseDatasource<InternalRestApiDatasourceContext> {
   constructor(context: InternalRestApiDatasourceContext) {
@@ -16,12 +16,20 @@ export class InternalRestApiDatasource extends BaseDatasource<InternalRestApiDat
       ...this.context.headers,
     }
 
-    const baseOptions = {
+    const baseOptions: OptionsOfTextResponseBody = {
       prefixUrl: this.context.baseUrl,
       timeout: this.context.timeout
         ? { request: this.context.timeout }
         : undefined,
       headers,
+      retry: {
+        limit: this.context.retryPolicy?.retries || 3,
+        calculateDelay: ({ attemptCount }) =>
+          Math.min(
+            (this.context.retryPolicy?.delay || 1000) * 2 ** attemptCount,
+            this.context.retryPolicy?.maxDelay || 30000
+          ),
+      },
       ...options,
     }
 
@@ -47,10 +55,14 @@ export class InternalRestApiDatasource extends BaseDatasource<InternalRestApiDat
       } catch (error) {
         lastError = error as Error
         const currentDelay = Math.min(delay * 2 ** i, maxDelay)
+        this.context.logger?.warn?.(
+          `${this.context.name} - Attempt ${i + 1} failed: ${lastError.message}`
+        )
         await new Promise((resolve) => setTimeout(resolve, currentDelay))
       }
     }
-    this.context.logger?.error(
+
+    this.context.logger?.error?.(
       `${this.context.name} - Operation failed after ${retries} retries: ${lastError?.message}`,
       lastError
     )

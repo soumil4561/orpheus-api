@@ -1,3 +1,3 @@
-export * from './base.js'
-export * from './internal-rest-api.datasource.js'
-export * from './external-rest-api.datasource.js'
+export * from '@/datasource/base'
+export * from '@/datasource/internal-rest-api.datasource.js'
+export * from '@/datasource/external-rest-api.datasource.js'
