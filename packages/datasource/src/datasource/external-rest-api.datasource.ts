@@ -1,11 +1,6 @@
-import { BaseDatasource } from '@/datasource'
-import { ExternalRestApiDatasourceContext } from '@/types'
+import { ApiDatasource } from './api.datasource'
 
-export class ExternalRestApiDatasource extends BaseDatasource<ExternalRestApiDatasourceContext> {
-  constructor(context: ExternalRestApiDatasourceContext) {
-    super(context)
-  }
-
+export class ExternalRestApiDatasource extends ApiDatasource {
   public async runWithRetry<T>(
     operation: () => Promise<T>,
     retries: number = this.context.retryPolicy?.retries || 3,

@@ -1,13 +1,8 @@
 import got, { OptionsOfTextResponseBody } from 'got'
 
-import { BaseDatasource } from '@/datasource'
-import { InternalRestApiDatasourceContext } from '@/types'
+import { ApiDatasource } from './api.datasource'
 
-export class InternalRestApiDatasource extends BaseDatasource<InternalRestApiDatasourceContext> {
-  constructor(context: InternalRestApiDatasourceContext) {
-    super(context)
-  }
-
+export class InternalRestApiDatasource extends ApiDatasource {
   private async request<T>(options: OptionsOfTextResponseBody): Promise<T> {
     const headers = {
       Authorization: this.context.token
