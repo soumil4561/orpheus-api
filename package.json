@@ -54,6 +54,7 @@
     "shared/*"
   ],
   "dependencies": {
+    "@changesets/cli": "^2.29.4",
     "dotenv": "^16.5.0"
   }
 }
