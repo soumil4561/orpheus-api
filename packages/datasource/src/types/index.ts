@@ -1,3 +1,3 @@
-export * from '@/types/datasource.type'
-export * from '@/types/api-datasource.type'
-export * from '@/types/relational-datasource.type'
+export * from './datasource.type'
+export * from './api-datasource.type'
+export * from './relational-datasource.type'

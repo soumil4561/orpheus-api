@@ -12,7 +12,7 @@ export interface PostgresDatasourceTypeormOptions {
   migrations?: (Function | string)[]
 }
 
-export class PostgresDatasourceContext extends RelationalDatabaseDatasource<RelationalDatasourceContext> {
+export class PostgresDatasource extends RelationalDatabaseDatasource<RelationalDatasourceContext> {
   private datasource!: DataSource
   private readonly context: RelationalDatasourceContext
 
@@ -77,7 +77,25 @@ export class PostgresDatasourceContext extends RelationalDatabaseDatasource<Rela
     return this.datasource
   }
 
-  public async query<T = unknown>(
+  public query(): ReturnType<typeof this.datasource.createQueryBuilder> {
+    if (!this.datasource.isInitialized) {
+      throw new Error('Datasource is not initialized. Call connect() first.')
+    }
+    return this.datasource.createQueryBuilder()
+  }
+
+  public queryWithAlias(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    entity: Function | string,
+    alias: string
+  ): ReturnType<typeof this.datasource.createQueryBuilder> {
+    if (!this.datasource.isInitialized) {
+      throw new Error('Datasource is not initialized. Call connect() first.')
+    }
+    return this.datasource.createQueryBuilder(entity, alias)
+  }
+
+  public async queryRaw<T = unknown>(
     sql: string,
     params?: unknown[]
   ): Promise<T[]> {

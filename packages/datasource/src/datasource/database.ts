@@ -16,7 +16,7 @@ export abstract class RelationalDatabaseDatasource<
   public abstract connect(): Promise<unknown>
 
   //3. Execute a query against the database and return the results.
-  public abstract query<T = unknown>(
+  public abstract queryRaw<T = unknown>(
     sql: string,
     params?: unknown[]
   ): Promise<T[]>

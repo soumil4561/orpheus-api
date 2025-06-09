@@ -1,4 +1,4 @@
-import { DatasourceContext } from '@/types'
+import { DatasourceContext } from './datasource.type'
 
 /**
  * This interface is used to define a relational datasource.
