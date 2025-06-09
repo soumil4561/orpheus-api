@@ -1,15 +1,15 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "./dist",
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "declaration": true,
-    "declarationDir": "dist",
-    "emitDeclarationOnly": false
+    "declarationDir": "dist"
+
+    // "emitDeclarationOnly": false
   },
-  "include": ["src"]
+  "include": ["**/*.ts", "package.json", "README.md"]
 }

@@ -1,17 +1,26 @@
 {
   "name": "@orpheus/datasource-provider",
   "version": "1.0.0",
-  "description": "Orpheus datsource provider package",
-  "main": "src/index.js",
+  "description": "Orpheus datasource provider package",
   "type": "module",
-  "scripts": {},
+  "main": "dist/src/index.js",
+  "types": "dist/types/src/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:alias": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "clean": "rm -rf dist"
+  },
   "author": "Soumil Singh",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "@types/pg": "^8.15.4"
   },
   "dependencies": {
     "got": "^14.4.7",
+    "pg": "^8.16.0",
     "winston": "^3.17.0"
   }
 }
