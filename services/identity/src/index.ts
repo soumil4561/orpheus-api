@@ -1,7 +1,17 @@
 import server from './app'
 import { logger, setContext } from '@orpheus/logger'
+import { identityDatasource } from '@/datasource'
 
 setContext('identity-service')
+
+try {
+  await identityDatasource.connect()
+  logger.info('Connected to Postgres successfully')
+} catch (err) {
+  logger.error('Failed to connect to Postgres:', err)
+  // Optionally do not start the server at all
+  // process.exit(1)
+}
 
 await new Promise<void>((resolve) =>
   server.listen({ port: 3001 }, () => {
@@ -11,14 +21,13 @@ await new Promise<void>((resolve) =>
 )
 
 const exitHandler = () => {
-  if (server) {
+  logger.info('Shutting down...')
+  identityDatasource.close().finally(() => {
     server.close(() => {
-      logger.info('Server shtting down gracefully')
+      logger.info('HTTP server closed')
       process.exit(1)
     })
-  } else {
-    process.exit(1)
-  }
+  })
 }
 
 const unexpectedErrorHandler = (error: Error) => {
