@@ -1,32 +1,22 @@
 import http from 'http'
+
+import 'dotenv/config'
+import 'reflect-metadata'
 import express from 'express'
 import cors from 'cors'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@as-integrations/express5'
+import { schema } from '@/schemas/gql'
 
 const app = express()
 const httpServer = http.createServer(app)
-
 interface RequestContext {
   token?: string
 }
 
-const typeDefs = `
-    type Query {
-        hello: String
-    }
-    `
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello, world!',
-  },
-}
-
 const server = new ApolloServer<RequestContext>({
-  typeDefs,
-  resolvers,
+  schema,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 })
 
