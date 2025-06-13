@@ -1,0 +1,1 @@
+export const BCRYPT_DEFAULT_SALT_ROUNDS = 10
