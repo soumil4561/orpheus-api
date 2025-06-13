@@ -6,8 +6,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "declaration": false
-    // "declarationDir": "dist"
+    "declaration": true,
+    "declarationDir": "dist"
 
     // "emitDeclarationOnly": false
   },
