@@ -3,18 +3,23 @@
   "version": "1.0.0",
   "description": "Orpheus Auth utils",
   "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsc",
-    "build:alias": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "clean": "rm -rf dist"
+    "build:alias": "tsc-alias -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "build:dts": "tsc --emitDeclarationOnly",
+    "build:all": "yarn clean && yarn build && yarn build:alias && rollup -c rollup.config.mjs && rm -rf ./dist/src/*.d.ts"
   },
   "author": "Soumil Singh",
   "license": "ISC",
   "devDependencies": {
+    "rollup": "^4.43.0",
+    "rollup-plugin-dts": "^6.2.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {

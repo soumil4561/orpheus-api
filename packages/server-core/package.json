@@ -4,14 +4,16 @@
   "description": "Orpheus server core",
   "main": "dist/src/index.js",
   "type": "module",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/index.d.ts",
   "author": "Soumil Singh",
   "license": "MIT",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "build:alias": "yarn clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "clean": "rm -rf dist"
+    "build:alias": "tsc-alias -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "build:dts": "tsc --emitDeclarationOnly",
+    "build:all": "yarn clean && yarn build && yarn build:alias && rollup -c rollup.config.mjs &&  find ./dist/src -type f -name '*.d.ts' -delete"
   },
   "dependencies": {
     "compression": "^1.8.0",
@@ -22,6 +24,8 @@
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
-    "@types/cors": "^2.8.19"
+    "@types/cors": "^2.8.19",
+    "rollup": "^4.43.0",
+    "rollup-plugin-dts": "^6.2.1"
   }
 }
