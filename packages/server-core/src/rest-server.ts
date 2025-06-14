@@ -1,12 +1,12 @@
 import http from 'http'
-import express, { Router, Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
-import { logger } from '@orpheus/logger'
 import { globalApiErrorHandler } from '@orpheus/error-utils'
 import * as promClient from 'prom-client'
 import { status } from 'http-status'
+import { BaseExpressServerContext } from '@/types'
 
 import {
   HEALTH_FAIL_MSG,
@@ -14,26 +14,6 @@ import {
   INTERNAL_SERVER_ERROR_MSG,
   NOT_FOUND_MSG,
 } from './constants'
-
-interface BaseExpressServerContext {
-  serviceName: string
-  port: number
-  env: string
-  logger: typeof logger
-  middlewares?: express.RequestHandler[]
-  routes?: {
-    path: string
-    router: Router
-  }[]
-  healthCheck?: () => Promise<boolean>
-  errorHandler?: express.ErrorRequestHandler
-  onReady?: () => void | Promise<void>
-  onShutdown?: () => void | Promise<void>
-  enableMetrics?: boolean
-  responseHeaders?: Record<string, string>
-  corsOptions?: cors.CorsOptions
-  tags?: Record<string, string | number>
-}
 
 export class ExpressRestServer<TContext extends BaseExpressServerContext> {
   private httpServer!: http.Server
