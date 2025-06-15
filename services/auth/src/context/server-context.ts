@@ -1,11 +1,19 @@
 import { logger, env } from '@/context'
 import { BaseExpressServerContext } from '@orpheus/server-core'
 import router from '@/routes/v1'
+import { eventDatasource } from '@/datasource'
 
 const allowedOrigins =
   env.NODE_ENV === 'dev'
     ? ['*']
     : env.CORS_ORIGINS?.split(',').map((origin) => origin.trim()) ?? []
+
+async function onReady() {
+  logger.info('Connecting to event bus...')
+  await eventDatasource.connect()
+  logger.info('Connected to event bus ')
+  logger.info(`${env.SERVICE_NAME} is ready`)
+}
 
 export const serverContext: BaseExpressServerContext = {
   serviceName: env.SERVICE_NAME,
@@ -22,9 +30,7 @@ export const serverContext: BaseExpressServerContext = {
     // Perform DB or service ping check
     return true
   },
-  onReady: () => {
-    logger.info(`${env.SERVICE_NAME} is ready`)
-  },
+  onReady,
   onShutdown: () => {
     logger.info(`Cleanup before shutting down ${env.SERVICE_NAME}`)
   },
