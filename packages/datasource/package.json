@@ -4,22 +4,27 @@
   "description": "Orpheus datasource provider package",
   "type": "module",
   "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsc",
-    "build:alias": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "clean": "rm -rf dist"
+    "build:alias": "tsc-alias -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "build:dts": "tsc --emitDeclarationOnly",
+    "build:all": "yarn clean && yarn build && yarn build:alias && rollup -c rollup.config.mjs && rm -rf ./dist/src/*.d.ts"
   },
   "author": "Soumil Singh",
   "license": "ISC",
   "devDependencies": {
+    "rollup": "^4.43.0",
+    "rollup-plugin-dts": "^6.2.1",
     "@types/pg": "^8.15.4"
   },
   "dependencies": {
     "got": "^14.4.7",
+    "nats": "^2.29.3",
     "pg": "^8.16.0",
     "winston": "^3.17.0"
   }
