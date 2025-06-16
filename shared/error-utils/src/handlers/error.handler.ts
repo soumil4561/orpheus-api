@@ -22,9 +22,7 @@ export const globalApiErrorHandler: ErrorRequestHandler = (
 ) => {
   // console.error(err.stack) // Log the error stack trace for debugging
   // Prevent sending response if headers are already sent
-  if (res.headersSent) {
-    return next(err)
-  }
+  if (res.headersSent) return
 
   // If the error is an instance of ApiError, use its properties
   if (err instanceof ApiError) {
