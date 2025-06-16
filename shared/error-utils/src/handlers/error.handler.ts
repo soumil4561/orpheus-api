@@ -21,13 +21,15 @@ export const globalApiErrorHandler: ErrorRequestHandler = (
   next: NextFunction
 ) => {
   // console.error(err.stack) // Log the error stack trace for debugging
+  // Prevent sending response if headers are already sent
+  if (res.headersSent) return
 
   // If the error is an instance of ApiError, use its properties
   if (err instanceof ApiError) {
     res.status(err.statusCode).json({
       success: false,
       message: err.message,
-      error: process.env.NODE_ENV === 'development' ? err : {}, // Send detailed error in development mode
+      error: process.env.NODE_ENV === 'development' ? err : null, // Send detailed error in development mode
     })
     return
   }
