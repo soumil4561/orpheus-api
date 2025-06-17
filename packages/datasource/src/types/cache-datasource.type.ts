@@ -1,4 +1,3 @@
-import { RedisClientOptions } from 'redis'
 import { DatasourceContext } from './datasource.type'
 
 /**
@@ -21,10 +20,13 @@ export interface BaseCacheContext<TOptions = Record<string, unknown>>
 /**
  * Redis-specific cache context.
  */
-export interface RedisCacheContext
-  extends BaseCacheContext<RedisClientOptions> {
+export interface RedisCacheContext extends BaseCacheContext {
   provider: 'redis'
-  options?: RedisClientOptions
+  host: string
+  port: number
+  username: string
+  password: string
+  reconnectOnError?: boolean
 }
 
 /**
