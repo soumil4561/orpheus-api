@@ -24,5 +24,16 @@ services:
       - ./infra/nats/nats.conf:/etc/nats/nats.conf:ro
     command: ["-c", "/etc/nats/nats.conf"]
 
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./infra/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - ./infra/redis/users.acl:/usr/local/etc/redis/users.acl:ro
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+
 volumes:
   pgdata:
