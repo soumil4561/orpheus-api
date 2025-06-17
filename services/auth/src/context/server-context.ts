@@ -1,17 +1,20 @@
 import { logger, env } from '@/context'
 import { BaseExpressServerContext } from '@orpheus/server-core'
 import router from '@/routes/v1'
-import { eventDatasource } from '@/datasource'
+import { cacheDatasoure, eventDatasource } from '@/datasource'
 
 const allowedOrigins =
   env.NODE_ENV === 'dev'
     ? ['*']
-    : env.CORS_ORIGINS?.split(',').map((origin) => origin.trim()) ?? []
+    : (env.CORS_ORIGINS?.split(',').map((origin) => origin.trim()) ?? [])
 
 async function onReady() {
   logger.info('Connecting to event bus...')
   await eventDatasource.connect()
   logger.info('Connected to event bus ')
+  logger.info('Connecting to cache memory...')
+  await cacheDatasoure.connect()
+  logger.info('Connected to cache memory')
   logger.info(`${env.SERVICE_NAME} is ready`)
 }
 

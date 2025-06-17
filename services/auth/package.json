@@ -14,6 +14,7 @@
     "@orpheus/auth-utils": "^1.0.0",
     "@orpheus/datasource-provider": "^1.0.0",
     "@orpheus/logger": "^1.0.0",
+    "@orpheus/api-handler": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
