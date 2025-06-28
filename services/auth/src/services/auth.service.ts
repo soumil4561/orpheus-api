@@ -1,18 +1,43 @@
-import { Request, Response } from 'express'
+import { status } from 'http-status'
+import { RequestHandler } from 'express'
 import { hashPassword } from '@orpheus/auth-utils'
-import { eventDatasource } from '@/datasource'
+import { apiHandler } from '@orpheus/api-handler'
+import { eventDatasource, dbDatasource } from '@/datasource'
+import constants from '@/constants'
 
 /**
  * Registers a user
  */
-export async function registerUser(req: Request, res: Response) {
-  //1. check using bloom filter, if email/username found reject
-  // 2. hash the password
-  req.body.password = await hashPassword(req.body.password, 12)
-  //3. colate all the information, trigger email service for email verification
+export const registerUser: RequestHandler = apiHandler(async (req) => {
+  // check username/password existence
+
+  // hash password
+  req.body.password = await hashPassword(
+    req.body.password,
+    constants.PASSWORD_HASH_SALT_ROUNDS
+  )
+
+  const pendingUser = {
+    id: crypto.randomUUID(),
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    expiresAt: Date.now() + constants.PENDING_USER_EXPIRY,
+    emailVerifyToken: crypto.randomUUID(),
+    emailTokenExpiresAt: Date.now() + constants.EMAIL_VERIFY_TOKEN_EXPIRY,
+    isEmailVerified: false,
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'] || '',
+  }
+
+  // publish event
   await eventDatasource.publish('user.create.pending', req.body)
-  res.send(req.body)
-  //4. store the initial data all in redis with ttl ~60 mins
-  //5. once user verifies email, we can setup the there db entries in the background and everything
-  //6.
-}
+
+  await dbDatasource.createPendingUserRegistration(pendingUser)
+
+  return {
+    data: null,
+    statusCode: status.OK,
+    message: constants.REGISTER_USER_SUCCESS_MSG,
+  }
+})

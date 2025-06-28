@@ -53,6 +53,28 @@ const EnvSchema = z.object({
     .transform(Number)
     .optional()
     .default('5000'),
+
+  // Postgres Datasource
+  POSTGRES_DATASOURCE_NAME: z.string(),
+  POSTGRES_HOST: z.string(),
+  POSTGRES_USER: z.string(),
+  POSTGRES_PASS: z.string(),
+  POSTGRES_DB: z.string(),
+  POSTGRES_PORT: z.string().transform(Number).default('5432'),
+
+  POSTGRES_NUM_RETRIES: z.string().transform(Number).optional().default('3'),
+  POSTGRES_RETRY_DELAY: z.string().transform(Number).optional().default('1000'),
+  POSTGRES_RETRY_MAX_DELAY: z
+    .string()
+    .transform(Number)
+    .optional()
+    .default('5000'),
+  POSTGRES_REQUEST_TIMEOUT: z
+    .string()
+    .transform(Number)
+    .optional()
+    .default('30000'),
+  POSTGRES_POOL_SIZE: z.string().transform(Number).optional().default('10'),
 })
 
 const parsed = EnvSchema.safeParse(process.env)
