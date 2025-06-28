@@ -1,7 +1,7 @@
 import { logger, env } from '@/context'
 import { BaseExpressServerContext } from '@orpheus/server-core'
 import router from '@/routes/v1'
-import { cacheDatasoure, eventDatasource } from '@/datasource'
+import { cacheDatasoure, eventDatasource, dbDatasource } from '@/datasource'
 
 const allowedOrigins =
   env.NODE_ENV === 'dev'
@@ -15,6 +15,9 @@ async function onReady() {
   logger.info('Connecting to cache memory...')
   await cacheDatasoure.connect()
   logger.info('Connected to cache memory')
+  logger.info(`Connecting to DB...`)
+  await dbDatasource.connect()
+  logger.info(`Connected to DB`)
   logger.info(`${env.SERVICE_NAME} is ready`)
 }
 
