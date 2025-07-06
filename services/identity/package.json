@@ -1,7 +1,7 @@
 {
   "name": "@orpheus-api/identity",
   "version": "1.0.0",
-  "description": "Orpheus Core Identity Service",
+  "description": "Orpheus Core Identity Service: takes care of user profile, preferences",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,8 +11,11 @@
   "author": "Soumil Singh",
   "license": "ISC",
   "dependencies": {
+    "@apollo/graphql": "^14.5.0",
     "@apollo/server": "^4.12.1",
+    "@apollo/subgraph": "^2.11.0",
     "@as-integrations/express5": "^1.0.0",
+    "@orpheus/auth-utils": "^1.0.0",
     "@orpheus/datasource-provider": "^1.0.0",
     "@orpheus/logger": "^1.0.0",
     "cors": "^2.8.5",
@@ -22,10 +25,5 @@
     "graphql-tag": "^2.12.6",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.24"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
   }
 }
