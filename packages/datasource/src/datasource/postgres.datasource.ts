@@ -30,7 +30,7 @@ export class PostgresDatasource extends RelationalDatabaseDatasource<RelationalD
       username: context.username,
       password: context.password,
       database: context.database,
-      synchronize: true, // consider making configurable
+      synchronize: false,
       logging: context.enableLogging || process.env.NODE_ENV === 'development',
       poolSize: context.poolSize || 10,
       ssl: context.ssl ? { rejectUnauthorized: false } : false,
