@@ -1,0 +1,2 @@
+export const USERNAME_LENGTH_LIMIT = 40
+export const EMAIL_LENGTH_LIMIT = 75

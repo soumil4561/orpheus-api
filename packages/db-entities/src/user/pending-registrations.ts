@@ -1,7 +1,5 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn } from 'typeorm'
-
-const USERNAME_LENGTH_LIMIT = Number(process.env.USERNAME_LENGTH_LIMIT)
-const EMAIL_LENGTH_LIMIT = Number(process.env.EMAIL_LENGTH_LIMIT)
+import { EMAIL_LENGTH_LIMIT, USERNAME_LENGTH_LIMIT } from '@/constants'
 
 @Entity('pending_user_registrations')
 export class PendingUserRegistration {
