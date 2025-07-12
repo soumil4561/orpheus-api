@@ -1,4 +1,10 @@
-import { DataSource, DataSourceOptions } from 'typeorm'
+import {
+  DataSource,
+  DataSourceOptions,
+  EntityTarget,
+  ObjectLiteral,
+  Repository,
+} from 'typeorm'
 import { Pool } from 'pg'
 
 import { RelationalDatasourceContext } from '@/types'
@@ -122,5 +128,18 @@ export class PostgresDatasource extends RelationalDatabaseDatasource<RelationalD
         throw error
       }
     }
+  }
+
+  /**
+   * Returns a TypeORM repository for the specified entity.
+   * @param entity The entity class or name to get the repository for.
+   */
+  public getRepository<T extends ObjectLiteral>(
+    entity: EntityTarget<T>
+  ): Repository<T> {
+    if (!this.datasource.isInitialized) {
+      throw new Error('Datasource is not initialized. Call connect() first.')
+    }
+    return this.datasource.getRepository<T>(entity)
   }
 }
