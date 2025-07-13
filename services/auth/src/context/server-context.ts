@@ -17,6 +17,7 @@ async function onReady() {
   logger.info('Connected to cache memory')
   logger.info(`Connecting to DB...`)
   await dbDatasource.connect()
+  await dbDatasource.initialize()
   logger.info(`Connected to DB`)
   logger.info(`${env.SERVICE_NAME} is ready`)
 }

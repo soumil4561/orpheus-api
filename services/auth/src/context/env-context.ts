@@ -75,6 +75,8 @@ const EnvSchema = z.object({
     .optional()
     .default('30000'),
   POSTGRES_POOL_SIZE: z.string().transform(Number).optional().default('10'),
+
+  SEND_EMAIL_EVENT_TOPIC: z.string().default('user.send.verfication-email'),
 })
 
 const parsed = EnvSchema.safeParse(process.env)
