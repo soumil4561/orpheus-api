@@ -3,7 +3,7 @@ import {
   PostgresDatasourceTypeormOptions,
 } from '@orpheus/datasource-provider'
 import { env } from './env-context'
-import { PendingUserRegistration } from '@orpheus/db-entities'
+import { User, PendingUserRegistration } from '@orpheus/db-entities'
 
 export const dbContext: RelationalDatasourceContext = {
   name: env.DATASOURCE_NAME,
@@ -25,6 +25,9 @@ export const dbContext: RelationalDatasourceContext = {
 }
 
 export const postgresTypeORMOptions: PostgresDatasourceTypeormOptions = {
-  entities: [PendingUserRegistration],
+  entities: [
+    User,
+    PendingUserRegistration
+  ],
   migrations: [],
 }

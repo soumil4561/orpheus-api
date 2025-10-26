@@ -39,6 +39,17 @@ const IdentityEnvSchema = z.object({
 
   // Env
   NODE_ENV: z.enum(['dev', 'test', 'prod']).default('dev'),
+
+  //NATS config
+  NATS_SERVER_LIST: z.string().default('nats://localhost:4222'),
+  NATS_CLIENT_ID: z.string().default('identity-service-client'),
+  NATS_BROKER_USER: z.string().default('user'),
+  NATS_BROKER_PASS: z.string().default('pass'),
+  NATS_CONSOLE_DEBUG: z.string().transform((val) => val === 'true').default('false'),
+  NATS_MAX_RECONNECTS: z.string().transform(Number).optional().default('10'),
+
+  // topics 
+  USER_REGISTRATION_LISTENER: z.string().default('user.create.pending'),
 })
 
 const parsed = IdentityEnvSchema.safeParse(process.env)

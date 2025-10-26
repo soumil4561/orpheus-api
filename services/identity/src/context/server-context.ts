@@ -2,7 +2,7 @@ import { logger, env } from '@/context'
 import { BaseGraphQLServerContext } from '@orpheus/server-core'
 import { schema } from '@/schemas/gql'
 // import { cacheDatasource, dbDatasource, eventDatasource } from '@/datasource'
-import { identityDatasource } from '@/datasource'
+import { identityDatasource, eventDatasource } from '@/datasource'
 
 const allowedOrigins =
   env.NODE_ENV === 'dev'
@@ -12,6 +12,8 @@ const allowedOrigins =
 async function onReady() {
   logger.info(`Connecting to datasources...`)
   await identityDatasource.connect()
+  await eventDatasource.connect()
+  eventDatasource.registerEventHandlers()
   logger.info(`${env.SERVICE_NAME} is ready`)
 }
 

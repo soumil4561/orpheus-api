@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 
-import { makeExecutableSchema } from '@graphql-tools/schema'
+import {buildSubgraphSchema} from '@apollo/subgraph'
 import { gql } from 'graphql-tag'
 
 import { resolvers } from '@/resolvers'
@@ -14,7 +14,14 @@ const typeDefs = gql`
   ${readFileSync(join(__dirname, 'schema.graphql'), 'utf8')}
 `
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
+// export const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers,
+// })
+export const schema = buildSubgraphSchema([
+  {
+    typeDefs,
+    resolvers
+  },
+]);
+
